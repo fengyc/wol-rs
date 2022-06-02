@@ -6,6 +6,23 @@ on:
 jobs:
   build-linux:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - aarch64-unknown-linux-gnu
+          - armv7-unknown-linux-gnueabihf
+          - i686-unknown-linux-gnu
+          - i686-unknown-linux-musl
+          - mips-unknown-linux-gnu
+          - mips64-unknown-linux-gnuabi64
+          - mips64el-unknown-linux-gnuabi64
+          - mipsel-unknown-linux-gnu
+          - powerpc-unknown-linux-gnu
+          - powerpc64-unknown-linux-gnu
+          - powerpc64le-unknown-linux-gnu
+          - arm-unknown-linux-gnueabi
+          - x86_64-unknown-linux-gnu
+          - x86_64-unknown-linux-musl
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -13,7 +30,7 @@ jobs:
       - name: Cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-cache
+          key: ${{ runner.os }}-cache-${{ matrix.target }}
           path: |
             ~/.cargo
 
@@ -22,9 +39,14 @@ jobs:
         with:
           toolchain: stable
           override: true
+          target: ${{ matrix.target }}
 
       - name: Build
-        run: cargo build --release
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --release --target ${{ matrix.target }}
 
       - name: Rename
         run: mv target/release/wol target/release/wol-linux-$(uname -m)
@@ -33,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: wol-linux-amd64
-          path: target/release/wol-*
+          path: target/*/release/wol-*
 
   build-windows:
     runs-on: windows-latest
