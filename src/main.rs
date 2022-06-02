@@ -10,10 +10,10 @@ struct Args {
     mac_addr: String,
 
     /// Broadcast IP address
-    #[clap(short = 'c', long, default_value = "0.0.0.0")]
+    #[clap(short = 'c', long, default_value = "255.255.255.255")]
     bcast_addr: String,
 
-    /// Bind IP address
+    /// Bind IP address. May need to be specified if the host has multiple ip addresses.
     #[clap(short = 'b', long, default_value = "0.0.0.0")]
     bind_addr: String,
 }
