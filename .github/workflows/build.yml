@@ -27,7 +27,7 @@ jobs:
         run: cargo build --release
 
       - name: Rename
-        run: mv target/release/wol target/release/wol-linux-amd64
+        run: mv target/release/wol target/release/wol-linux-$(uname -m)
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -58,7 +58,8 @@ jobs:
         run: cargo build --release
 
       - name: Rename
-        run: mv target/release/wol.exe target/release/wol-windows-amd64.exe
+        run: |
+          mv target/release/wol.exe target/release/wol-windows-amd64.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -89,7 +90,7 @@ jobs:
         run: cargo build --release
 
       - name: Rename
-        run: mv target/release/wol target/release/wol-macos-amd64
+        run: mv target/release/wol target/release/wol-macos-$(uname -m)
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
