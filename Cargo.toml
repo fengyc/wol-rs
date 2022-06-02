@@ -12,7 +12,7 @@ path = "src/lib.rs"
 doc = true
 
 [[bin]]
-name = "cargo-wol"
+name = "wol"
 path = "src/main.rs"
 doc = false
 
