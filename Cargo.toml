@@ -1,8 +1,15 @@
 [package]
-name = "wol"
-version = "0.1.0"
+name = "wol-rs"
+version = "0.0.1"
 edition = "2018"
-authors = ["FENG Yingcai"]
+authors = ["fengyingcai <fengyc.work@gmail.com>"]
+description = "Wake-on-LAN utility"
+homepage = "https://github.com/fengyc/wol-rs"
+repository = "https://github.com/fengyc/wol-rs"
+readme = "README.md"
+keywords = ["wol", "wake-on-lan"]
+categories = ["network-programming"]
+license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

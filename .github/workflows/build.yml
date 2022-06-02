@@ -1,0 +1,98 @@
+name: build-all
+
+on:
+  workflow_call:
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-cache
+          path: |
+            ~/.cargo
+
+      - name: Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Rename
+        run: mv target/release/wol target/release/wol-linux-amd64
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: wol-linux-amd64
+          path: target/release/wol-*
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-cache
+          path: |
+            ~/.cargo
+
+      - name: Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Rename
+        run: mv target/release/wol.exe target/release/wol-windows-amd64.exe
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: wol-windows-amd64
+          path: target/release/wol-*
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-cache
+          path: |
+            ~/.cargo
+
+      - name: Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Rename
+        run: mv target/release/wol target/release/wol-macos-amd64
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: wol-macos-amd64
+          path: target/release/wol-*

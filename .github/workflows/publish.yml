@@ -1,0 +1,17 @@
+name: publish-release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  cargo-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cargo publish
+        env:
+          CARGO_TOKEN: ${{ secrets.CARGO_TOKEN }}
+        run: |
+          cargo publish --token "$CARGO_TOKEN"
