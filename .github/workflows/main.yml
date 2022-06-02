@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@latest
+        uses: actions/checkout@v2
 
       - name: Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -24,7 +24,7 @@ jobs:
         run: mv target/release/wol target/release/wol-linux-amd64
 
       - name: Upload artifact
-        uses: actions/upload-artifact@latest
+        uses: actions/upload-artifact@v2
         with:
           name: wol-linux-amd64
           path: target/release/wol-*
@@ -33,7 +33,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@latest
+        uses: actions/checkout@v2
 
       - name: Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -47,7 +47,7 @@ jobs:
         run: ren target/release/wol target/release/wol-windows-amd64
 
       - name: Upload artifact
-        uses: actions/upload-artifact@latest
+        uses: actions/upload-artifact@v2
         with:
           name: wol-windows-amd64
           path: target/release/wol-*
@@ -56,7 +56,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@latest
+        uses: actions/checkout@v2
 
       - name: Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -70,7 +70,7 @@ jobs:
         run: mv target/release/wol target/release/wol-macos-amd64
 
       - name: Upload artifact
-        uses: actions/upload-artifact@latest
+        uses: actions/upload-artifact@v2
         with:
           name: wol-macos-amd64
           path: target/release/wol-*
@@ -83,7 +83,7 @@ jobs:
       - build-macos
     steps:
       - name: Download all artifact
-        uses: actions/upload-artifact@latest
+        uses: actions/download-artifact@v2
 
       - name: Development release
         uses: "marvinpinto/action-automatic-releases@latest"
