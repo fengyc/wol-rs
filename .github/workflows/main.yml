@@ -23,6 +23,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+          override: true
 
       - name: Build
         run: cargo build --release
@@ -53,12 +54,13 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+          override: true
 
       - name: Build
         run: cargo build --release
 
       - name: Rename
-        run: ren target/release/wol.exe target/release/wol-windows-amd64.exe
+        run: mv target/release/wol.exe target/release/wol-windows-amd64.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -83,6 +85,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+          override: true
 
       - name: Build
         run: cargo build --release
