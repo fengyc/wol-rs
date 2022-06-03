@@ -7,7 +7,7 @@ pub const MAC_ADDR_SIZE: usize = 6;
 pub const BIND_PORT: u16 = 0;
 pub const WOL_PORT: u16 = 9;
 
-/// # Mac address
+/// Mac address.
 ///
 /// A 6 bytes mac address, e.g. "00:0a:0b:0c:0d:0e".
 #[derive(Debug, Default, Eq, PartialEq, Copy, Clone)]
@@ -20,7 +20,7 @@ impl Display for MacAddr {
     }
 }
 
-/// # Mac address error
+/// Mac address error.
 pub struct MacAddrError {}
 
 impl Display for MacAddrError {
@@ -58,7 +58,18 @@ impl FromStr for MacAddr {
     }
 }
 
-/// # Send a WOL packet
+/// Send a WoL magic packet.
+///
+/// # Arguments
+///
+/// * `mac_addr` - Destination mac address
+/// * `bcast_addr` - Broadcast ip address
+/// * `bind_addr` - Bind ip address
+///
+/// # Errors
+///
+/// Raise an [`std::io::Error`] if the WoL magic packet could not be send.
+///
 pub fn send_wol(
     mac_addr: MacAddr,
     bcast_addr: Option<IpAddr>,
