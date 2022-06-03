@@ -49,7 +49,9 @@ jobs:
           args: --release --target ${{ matrix.target }}
 
       - name: Rename
-        run: mv target/release/wol target/release/wol-linux-$(uname -m)
+        env:
+          TARGET: ${{ matrix.target }}
+        run: mv target/$TARGET/release/wol target/$TARGET/release/wol-$TARGET
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
