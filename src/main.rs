@@ -3,7 +3,7 @@ use std::net::IpAddr;
 use wol::{send_wol, MacAddr};
 
 #[derive(Parser, Debug)]
-#[clap(author, version, about, long_about = None)]
+#[clap(version, about, long_about = None)]
 struct Args {
     /// Destination MAC address
     #[clap(name = "MAC_ADDR")]
@@ -13,7 +13,7 @@ struct Args {
     #[clap(short = 'c', long, default_value = "255.255.255.255")]
     bcast_addr: String,
 
-    /// Bind IP address. May need to be specified if the host has multiple ip addresses.
+    /// Bind IP address
     #[clap(short = 'b', long, default_value = "0.0.0.0")]
     bind_addr: String,
 }
