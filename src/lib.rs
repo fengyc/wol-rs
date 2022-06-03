@@ -39,7 +39,11 @@ impl FromStr for MacAddr {
     type Err = MacAddrError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let v: Vec<&str> = s.split(':').collect();
+        if s.len() != 17 {
+            return Err(MacAddrError {});
+        }
+        let seperator = s.chars().nth(2).unwrap();
+        let v: Vec<&str> = s.split(seperator).collect();
         if v.len() != MAC_ADDR_SIZE {
             return Err(MacAddrError {});
         }
