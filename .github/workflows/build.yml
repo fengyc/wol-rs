@@ -17,12 +17,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache
-        uses: actions/cache@v3
-        with:
-          key: ${{ runner.os }}-cache
-          path: |
-            ~/.cargo
+      # Rust cache
+      - uses: Swatinem/rust-cache@v1
 
       - run: |
           sudo apt update
@@ -60,12 +56,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache
-        uses: actions/cache@v3
-        with:
-          key: ${{ runner.os }}-cache
-          path: |
-            ~/.cargo
+      # Rust cache
+      - uses: Swatinem/rust-cache@v1
 
       - name: Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -92,12 +84,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache
-        uses: actions/cache@v3
-        with:
-          key: ${{ runner.os }}-cache
-          path: |
-            ~/.cargo
+      # Rust cache
+      - uses: Swatinem/rust-cache@v1
 
       - name: Rust toolchain
         uses: actions-rs/toolchain@v1
