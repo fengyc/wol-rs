@@ -81,13 +81,13 @@ jobs:
       - name: Rename
         env:
           TARGET: ${{ matrix.target }}
-        run: mv target/$env:TARGET/release/wol target/$env:TARGET/release/wol-$env:TARGET
+        run: mv target/$env:TARGET/release/wol.exe target/$env:TARGET/release/wol-$env:TARGET.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: wol-${{ matrix.target }}
-          path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}.exe
 
   build-macos:
     runs-on: macos-latest
