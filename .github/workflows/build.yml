@@ -53,6 +53,10 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
+    strategy:
+      matrix:
+        target:
+          - x86_64-pc-windows-msvc
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -65,22 +69,33 @@ jobs:
         with:
           toolchain: stable
           override: true
+          target: ${{ matrix.target }}
 
       - name: Build
-        run: cargo build --release
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --release --target ${{ matrix.target }}
 
       - name: Rename
-        run: |
-          mv target/release/wol.exe target/release/wol-windows-amd64.exe
+        env:
+          TARGET: ${{ matrix.target }}
+        run: mv target/$TARGET/release/wol target/$TARGET/release/wol-$TARGET
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: wol-windows-amd64
-          path: target/release/wol-*
+          name: wol-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}
 
   build-macos:
     runs-on: macos-latest
+    strategy:
+      matrix:
+        target:
+          - aarch64-apple-darwin
+          - x86_64-apple-darwin
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -93,15 +108,22 @@ jobs:
         with:
           toolchain: stable
           override: true
+          target: ${{ matrix.target }}
 
       - name: Build
-        run: cargo build --release
+        uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --release --target ${{ matrix.target }}
 
       - name: Rename
-        run: mv target/release/wol target/release/wol-macos-$(uname -m)
+        env:
+          TARGET: ${{ matrix.target }}
+        run: mv target/$TARGET/release/wol target/$TARGET/release/wol-$TARGET
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: wol-macos-amd64
-          path: target/release/wol-*
+          name: wol-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}
