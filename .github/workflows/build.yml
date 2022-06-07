@@ -6,6 +6,13 @@ on:
 jobs:
   build-linux:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - x86_64-unknown-linux-gnu
+          - arm-unknown-linux-gnueabi
+          - arm-unknown-linux-gnueabihf
+          - aarch64-unknown-linux-gnu
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -16,6 +23,12 @@ jobs:
           key: ${{ runner.os }}-cache
           path: |
             ~/.cargo
+
+      - run: |
+          sudo apt update
+          sudo apt install -y gcc-arm-linux-gnueabi
+          sudo apt install -y gcc-arm-linux-gnueabihf
+          sudo apt install -y gcc-aarch64-linux-gnu
 
       - name: Rust toolchain
         uses: actions-rs/toolchain@v1
@@ -28,16 +41,18 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release
+          args: --release --target ${{ matrix.target }}
 
       - name: Rename
-        run: mv target/release/wol target/release/wol-linux-$(uname -m)
+        env:
+          TARGET: ${{ matrix.target }}
+        run: mv target/$TARGET/release/wol target/$TARGET/release/wol-$TARGET
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: wol-linux-amd64
-          path: target/release/wol-*
+          name: wol-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}
 
   build-windows:
     runs-on: windows-latest

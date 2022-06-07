@@ -28,4 +28,4 @@ jobs:
           prerelease: true
           draft: false
           files: |
-            ./*/*
+            ./**
