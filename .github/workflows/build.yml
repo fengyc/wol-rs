@@ -9,10 +9,25 @@ jobs:
     strategy:
       matrix:
         target:
-          - x86_64-unknown-linux-gnu
+          - aarch64-unknown-linux-gnu
           - arm-unknown-linux-gnueabi
           - arm-unknown-linux-gnueabihf
-          - aarch64-unknown-linux-gnu
+          - armv5te-unknown-linux-gnueabi
+          - armv7-unknown-linux-gnueabi
+          - armv7-unknown-linux-gnueabihf
+          - i586-unknown-linux-gnu
+          - i686-unknown-linux-gnu
+          - mips-unknown-linux-gnu
+          - mips64-unknown-linux-gnuabi64
+          - mips64el-unknown-linux-gnuabi64
+          - mipsel-unknown-linux-gnu
+          - powerpc-unknown-linux-gnu
+          - powerpc64-unknown-linux-gnu
+          - powerpc64le-unknown-linux-gnu
+          - riscv64gc-unknown-linux-gnu
+          - s390x-unknown-linux-gnu
+          - sparc64-unknown-linux-gnu
+          - x86_64-unknown-linux-gnu
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -53,6 +68,7 @@ jobs:
     strategy:
       matrix:
         target:
+          - i686-pc-windows-msvc
           - x86_64-pc-windows-msvc
     steps:
       - name: Checkout
