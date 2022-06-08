@@ -20,18 +20,15 @@ jobs:
       # Rust cache
       - uses: Swatinem/rust-cache@v1
 
-#      - run: |
-#          sudo apt update
-#          sudo apt install -y gcc-arm-linux-gnueabi
-#          sudo apt install -y gcc-arm-linux-gnueabihf
-#          sudo apt install -y gcc-aarch64-linux-gnu
-
       - name: Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           override: true
           target: ${{ matrix.target }}
+
+      # Latest cross instead of the old in crate.io
+      - run: cargo install cross --git https://github.com/cross-rs/cross
 
       - name: Build
         uses: actions-rs/cargo@v1
@@ -71,6 +68,9 @@ jobs:
           override: true
           target: ${{ matrix.target }}
 
+      # Latest cross instead of the old in crate.io
+      - run: cargo install cross --git https://github.com/cross-rs/cross
+
       - name: Build
         uses: actions-rs/cargo@v1
         with:
@@ -109,6 +109,9 @@ jobs:
           toolchain: stable
           override: true
           target: ${{ matrix.target }}
+
+      # Latest cross instead of the old in crate.io
+      - run: cargo install cross --git https://github.com/cross-rs/cross
 
       - name: Build
         uses: actions-rs/cargo@v1
