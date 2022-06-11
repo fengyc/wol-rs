@@ -1,0 +1,10 @@
+name: pr-build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-all:
+    uses: ./.github/workflows/build.yml
