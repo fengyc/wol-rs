@@ -42,8 +42,8 @@ impl FromStr for MacAddr {
         if s.len() != 17 {
             return Err(MacAddrError {});
         }
-        let seperator = s.chars().nth(2).unwrap();
-        let v: Vec<&str> = s.split(seperator).collect();
+        let separator = s.chars().nth(2).unwrap();
+        let v: Vec<&str> = s.split(separator).collect();
         if v.len() != MAC_ADDR_SIZE {
             return Err(MacAddrError {});
         }

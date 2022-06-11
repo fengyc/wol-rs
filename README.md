@@ -19,24 +19,27 @@ Run `wol -h`, to show options and args.
     Wake-on-LAN utility
 
     USAGE:
-    wol [OPTIONS] <MAC_ADDR>
-    
-    ARGS:
-    <MAC_ADDR>    Destination MAC address
-    
-    OPTIONS:
-    -b, --bind-addr <BIND_ADDR>      Bind IP address [default: 0.0.0.0]
-    -c, --bcast-addr <BCAST_ADDR>    Broadcast IP address [default: 255.255.255.255]
-    -h, --help                       Print help information
-    -V, --version                    Print version information
+        wol [OPTIONS] <MAC_ADDR>
 
+    ARGS:
+        <MAC_ADDR>    Destination MAC address
+
+    OPTIONS:
+        -b, --bind-addr <BIND_ADDR>      Bind IP address [default: 0.0.0.0]
+        -c, --bcast-addr <BCAST_ADDR>    Broadcast IP address [default: 255.255.255.255]
+        -h, --help                       Print help information
+        -V, --version                    Print version information
 
 ### Lib
 
 Add `wol-rs` to `Cargo.toml`
 
-    [denpendencies]
-    wol-rs = "0.0.1"
+    [dependencies]
+    wol-rs = "1"
+
+Send a WoL magic packet
+
+    send_wol(<dest_mac>, None, None).unwrap()
 
 ## License
 
