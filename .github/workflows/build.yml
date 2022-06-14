@@ -42,7 +42,7 @@ jobs:
           - sparc64-unknown-linux-gnu
           - thumbv7neon-unknown-linux-gnueabihf
           - x86_64-unknown-linux-gnu
-          - x86_64-unknown-linux-gnux32
+          #- x86_64-unknown-linux-gnux32
           - x86_64-unknown-linux-musl
     steps:
       - name: Checkout
@@ -61,12 +61,12 @@ jobs:
       # Latest cross instead of the old in crate.io
       - run: cargo install cross --git https://github.com/cross-rs/cross
 
+      # Build, need to clean and build again if failed
       - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: build
-          args: --release --target ${{ matrix.target }}
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          cross build --release --target $TARGET || (cargo clean && cross build --release --target $TARGET)
 
       - name: Rename
         env:
