@@ -6,15 +6,15 @@ use wol::{send_wol, MacAddr};
 #[clap(version, about, long_about = None)]
 struct Args {
     /// Destination MAC address
-    #[clap(name = "MAC_ADDR")]
+    #[clap(name = "MAC_ADDR", value_parser)]
     mac_addr: String,
 
     /// Broadcast IP address
-    #[clap(short = 'c', long, default_value = "255.255.255.255")]
+    #[clap(short = 'c', long, value_parser, default_value = "255.255.255.255")]
     bcast_addr: String,
 
     /// Bind IP address
-    #[clap(short = 'b', long, default_value = "0.0.0.0")]
+    #[clap(short = 'b', long, value_parser, default_value = "0.0.0.0")]
     bind_addr: String,
 }
 
