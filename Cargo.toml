@@ -1,6 +1,6 @@
 [package]
 name = "wol-rs"
-version = "0.9.0"
+version = "0.9.1"
 edition = "2021"
 authors = ["fengyingcai <fengyc.work@gmail.com>"]
 description = "Wake-on-LAN utility"

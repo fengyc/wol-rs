@@ -37,7 +37,7 @@ Add `wol-rs` to `Cargo.toml`
     [dependencies]
     wol-rs = "1"
 
-Send a WoL magic packet
+Send a WoL magic packet over UDP
 
     send_wol(<dest_mac>, None, None).unwrap()
 

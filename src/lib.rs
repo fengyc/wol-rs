@@ -3,9 +3,14 @@ use std::io;
 use std::net::{IpAddr, UdpSocket};
 use std::str::FromStr;
 
-pub const MAC_ADDR_SIZE: usize = 6;
-pub const BIND_PORT: u16 = 0;
-pub const WOL_PORT: u16 = 9;
+/// Mac address size of bytes
+const MAC_ADDR_SIZE: usize = 6;
+
+/// Bind port, 0 means assigned by os
+const BIND_PORT: u16 = 0;
+
+/// WoL port could be 0/7/9， use 9 here
+const WOL_PORT: u16 = 9;
 
 /// Mac address.
 ///
@@ -58,7 +63,7 @@ impl FromStr for MacAddr {
     }
 }
 
-/// Send a WoL magic packet.
+/// Send a WoL magic packet over UDP.
 ///
 /// # Arguments
 ///
