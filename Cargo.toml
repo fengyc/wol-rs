@@ -25,3 +25,6 @@ doc = false
 
 [dependencies]
 clap = { version = "3", features = ["derive"] }
+
+[profile.release]
+strip = true
