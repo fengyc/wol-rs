@@ -9,13 +9,17 @@ Wake-on-LAN in rust.
 
 ### Binary
 
-Download from [https://github.com/fengyc/wol-rs/releases](https://github.com/fengyc/wol-rs/releases)
+Download from [https://github.com/fengyc/wol-rs/releases](https://github.com/fengyc/wol-rs/releases).
 
-OR
+OR using cargo install
 
-    cargo install wol-rs
+    cargo install wol-rs --features bin
 
-Run `wol -h`, to show options and args.
+OR build from source
+
+    cargo install --git https://github.com/fengyc/wol-rs.git --features bin
+
+Run `wol -h`, to show available options and args.
 
     Wake-on-LAN utility
 
