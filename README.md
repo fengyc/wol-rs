@@ -1,6 +1,7 @@
 # wol-rs
 
 [![main](https://github.com/fengyc/wol-rs/actions/workflows/main.yml/badge.svg)](https://github.com/fengyc/wol-rs/actions/workflows/main.yml)
+[![rust-clippy analyze](https://github.com/fengyc/wol-rs/actions/workflows/rust-clippy.yml/badge.svg?branch=main)](https://github.com/fengyc/wol-rs/actions/workflows/rust-clippy.yml)
 
 Wake-on-LAN in rust.
 
