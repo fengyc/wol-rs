@@ -1,6 +1,6 @@
 [package]
 name = "wol-rs"
-version = "0.9.1"
+version = "0.9.2"
 edition = "2021"
 authors = ["fengyingcai <fengyc.work@gmail.com>"]
 description = "Wake-on-LAN utility"
@@ -22,9 +22,13 @@ doc = true
 name = "wol"
 path = "src/main.rs"
 doc = false
+required-features = ["bin"]
+
+[features]
+bin = ["dep:clap"]
 
 [dependencies]
-clap = { version = "3", features = ["derive"] }
+clap = { version = "3", features = ["derive"], optional = true }
 
 [profile.release]
 strip = true
