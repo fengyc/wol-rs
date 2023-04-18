@@ -35,6 +35,7 @@ Run `wol -h`, to show available options and args.
         -h, --help                       Print help information
         -V, --version                    Print version information
 
+**ipv6 WoL magic packet can be send by specifying `-b` and `-c` with ipv6 address.**
 ### Lib
 
 Add `wol-rs` to `Cargo.toml`
