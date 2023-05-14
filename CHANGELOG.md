@@ -1,8 +1,15 @@
 # CHANGELOG
 
-## v0.9.2
+## v1.0.1
+
+From @konanzheng
+
 1. IP version check
 2. Update docs
+
+## v1.0.0
+
+1. Stable Release
 
 ## v0.9.1
 
