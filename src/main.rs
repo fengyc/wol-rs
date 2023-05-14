@@ -23,5 +23,8 @@ fn main() {
     let mac_addr: MacAddr = args.mac_addr.parse().unwrap();
     let bcast_addr: IpAddr = args.bcast_addr.parse().unwrap();
     let bind_addr: IpAddr = args.bind_addr.parse().unwrap();
+    if bind_addr.is_ipv4() && bcast_addr.is_ipv6() || bind_addr.is_ipv6() && bcast_addr.is_ipv4() {
+        panic!("The IP versions of bind_addr and bcast_addr do not match");
+    }
     send_wol(mac_addr, Some(bcast_addr), Some(bind_addr)).unwrap();
 }
