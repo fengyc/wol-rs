@@ -113,7 +113,8 @@ jobs:
       - name: Rename
         env:
           TARGET: ${{ matrix.target }}
-        run: mv target/$env:TARGET/release/wol.exe target/$env:TARGET/release/wol-$env:TARGET.exe
+        run: |
+          cd target/$env:TARGET/release/ && mv wol.exe wol-$env:TARGET.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
