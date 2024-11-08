@@ -28,7 +28,7 @@ required-features = ["bin"]
 bin = ["dep:clap"]
 
 [dependencies]
-clap = { version = "3", features = ["derive"], optional = true }
+clap = { version = "4.5.20", features = ["derive"], optional = true }
 
 [profile.release]
 strip = true
