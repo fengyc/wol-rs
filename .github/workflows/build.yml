@@ -74,7 +74,7 @@ jobs:
         run: mv target/$TARGET/release/wol target/$TARGET/release/wol-$TARGET
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: wol-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}
@@ -117,7 +117,7 @@ jobs:
           cd target/$env:TARGET/release/ && mv wol.exe wol-$env:TARGET.exe
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: wol-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}.exe
@@ -159,7 +159,7 @@ jobs:
         run: mv target/$TARGET/release/wol target/$TARGET/release/wol-$TARGET
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: wol-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}
