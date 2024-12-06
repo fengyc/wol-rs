@@ -81,11 +81,6 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        target:
-          - i686-pc-windows-msvc
-          - x86_64-pc-windows-msvc
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -97,30 +92,18 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          override: true
-          target: ${{ matrix.target }}
-
-      # Latest cross instead of the old in crate.io
-      - run: cargo install cross --git https://github.com/cross-rs/cross
 
       - name: Build
         uses: actions-rs/cargo@v1
         with:
-          use-cross: true
           command: build
-          args: --release --target ${{ matrix.target }} --features=bin
-
-      - name: Rename
-        env:
-          TARGET: ${{ matrix.target }}
-        run: |
-          cd target/$env:TARGET/release/ && mv wol.exe wol-$env:TARGET.exe
+          args: --release --features=bin
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wol-${{ matrix.target }}
-          path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}.exe
+          name: wol-windows
+          path: target/release/wol.exe
 
   build-macos:
     runs-on: macos-latest
@@ -140,26 +123,18 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          override: true
-          target: ${{ matrix.target }}
-
-      # Latest cross instead of the old in crate.io
-      - run: cargo install cross --git https://github.com/cross-rs/cross
 
       - name: Build
         uses: actions-rs/cargo@v1
         with:
-          use-cross: true
           command: build
-          args: --release --target ${{ matrix.target }} --features=bin
+          args: --release --features=bin
 
-      - name: Rename
-        env:
-          TARGET: ${{ matrix.target }}
-        run: mv target/$TARGET/release/wol target/$TARGET/release/wol-$TARGET
+      - run: |
+          mv target/release/wol target/release/wol-macos
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wol-${{ matrix.target }}
-          path: target/${{ matrix.target }}/release/wol-${{ matrix.target }}
+          name: wol-macos
+          path: target/release/wol-macos
