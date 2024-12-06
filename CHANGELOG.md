@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.1.0
+
+1. Allow flexible mac addr strings
+
 ## v1.0.1
 
 From @konanzheng

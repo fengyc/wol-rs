@@ -3,6 +3,8 @@ use std::io;
 use std::net::{IpAddr, UdpSocket};
 use std::str::FromStr;
 
+use eui48::MacAddress;
+
 /// Mac address size of bytes
 const MAC_ADDR_SIZE: usize = 6;
 
@@ -14,7 +16,7 @@ const WOL_PORT: u16 = 9;
 
 /// Mac address.
 ///
-/// A 6 bytes mac address, e.g. "00:0a:0b:0c:0d:0e".
+/// A 6 bytes mac address, e.g. "00:0a:0b:0c:0d:0e" or "0:a:b:c:d:e".
 #[derive(Debug, Default, Eq, PartialEq, Copy, Clone)]
 pub struct MacAddr(pub [u8; MAC_ADDR_SIZE]);
 
@@ -40,26 +42,18 @@ impl Debug for MacAddrError {
     }
 }
 
+impl From<MacAddress> for MacAddr {
+    fn from(value: MacAddress) -> Self {
+        Self(value.to_array())
+    }
+}
+
 impl FromStr for MacAddr {
     type Err = MacAddrError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        if s.len() != 17 {
-            return Err(MacAddrError {});
-        }
-        let separator = s.chars().nth(2).unwrap();
-        let v: Vec<&str> = s.split(separator).collect();
-        if v.len() != MAC_ADDR_SIZE {
-            return Err(MacAddrError {});
-        }
-        let mut mac_addr = MacAddr([0; MAC_ADDR_SIZE]);
-        for i in 0..MAC_ADDR_SIZE {
-            match u8::from_str_radix(v[i], 16) {
-                Ok(n) => mac_addr.0[i] = n,
-                Err(_) => return Err(MacAddrError {}),
-            }
-        }
-        Ok(mac_addr)
+        let m = MacAddress::from_str(s).map_err(|_| MacAddrError {})?;
+        Ok(m.into())
     }
 }
 
@@ -101,4 +95,26 @@ pub fn send_wol(
     socket.send_to(&magic_packet, (bcast_addr, WOL_PORT))?;
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use std::str::FromStr;
+
+    use rstest::rstest;
+
+    use crate::MacAddr;
+
+    #[rstest]
+    #[case("00:01:11:34:88:99", true)]
+    #[case("G0:01:11:34:88:99", true)]
+    #[case("00-01:11:34:88:99", true)]
+    #[case("00:1:11:34:88:99", true)]
+    #[case("00-01-11-34-88-99", true)]
+    #[case("00-1-11-34-88-99", true)]
+    #[case("0102.030A.0b0f", true)] // This case is from eui48
+    #[case("0x1234567890ab", true)] // This case if from eui48
+    fn test_mac_addr(#[case] s: &str, #[case] ok: bool) {
+        assert!(MacAddr::from_str(s).is_ok() == ok)
+    }
 }
