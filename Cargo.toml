@@ -1,6 +1,6 @@
 [package]
 name = "wol-rs"
-version = "1.1.0"
+version = "1.1.1"
 edition = "2021"
 authors = ["fengyingcai <fengyc.work@gmail.com>"]
 description = "Wake-on-LAN utility"
@@ -28,11 +28,11 @@ required-features = ["bin"]
 bin = ["dep:clap"]
 
 [dependencies]
-clap = { version = "4.5.20", features = ["derive"], optional = true }
+clap = { version = "4.5.41", features = ["derive"], optional = true }
 eui48 = { version = "1.1.0", features = ["disp_hexstring"] }
 
 [profile.release]
 strip = true
 
 [dev-dependencies]
-rstest = "0.23.0"
+rstest = "0.25.0"   

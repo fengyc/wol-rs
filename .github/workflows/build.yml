@@ -46,16 +46,15 @@ jobs:
           - x86_64-unknown-linux-musl
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Rust cache
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
       - name: Rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-          override: true
           target: ${{ matrix.target }}
 
       # Latest cross instead of the old in crate.io
@@ -83,21 +82,19 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Rust cache
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
       - name: Rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
 
       - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release --features=bin
+        run: |
+          cargo build --release --features=bin
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -109,21 +106,19 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Rust cache
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
 
       - name: Rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
 
       - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release --features=bin
+        run: |
+          cargo build --release --features=bin
 
       - run: |
           mv target/release/wol target/release/wol-macos
